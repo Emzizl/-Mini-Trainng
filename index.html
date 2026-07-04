@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>HTML Trainer PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(135deg,#0f172a,#111827,#1e293b);
+
+height:100vh;
+overflow:hidden;
+
+color:white;
+
+}
+
+/* фон */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:600px;
+height:600px;
+
+border-radius:50%;
+
+background:#4f46e5;
+
+filter:blur(180px);
+
+left:-200px;
+top:-200px;
+
+opacity:.35;
+
+animation:move1 18s linear infinite alternate;
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+width:700px;
+height:700px;
+
+border-radius:50%;
+
+background:#06b6d4;
+
+filter:blur(180px);
+
+right:-250px;
+bottom:-250px;
+
+opacity:.3;
+
+animation:move2 20s linear infinite alternate;
+
+}
+
+@keyframes move1{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(220px,180px);
+
+}
+
+}
+
+@keyframes move2{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(-180px,-140px);
+
+}
+
+}
+
+/* Верх */
+
+.topbar{
+
+position:fixed;
+
+top:15px;
+left:15px;
+right:15px;
+
+height:72px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 22px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.1);
+
+border-radius:22px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+z-index:100;
+
+}
+
+/* Лого */
+
+.logo{
+
+font-size:24px;
+
+font-weight:700;
+
+background:linear-gradient(90deg,#60a5fa,#22d3ee);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+/* Статистика */
+
+.stats{
+
+display:flex;
+
+gap:18px;
+
+align-items:center;
+
+}
+
+.card{
+
+background:rgba(255,255,255,.08);
+
+padding:10px 18px;
+
+border-radius:16px;
+
+font-size:15px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Кнопки */
+
+.buttons{
+
+display:flex;
+
+gap:10px;
+
+}
+
+button{
+
+border:none;
+
+cursor:pointer;
+
+padding:11px 20px;
+
+border-radius:14px;
+
+font-weight:600;
+
+color:white;
+
+transition:.25s;
+
+background:linear-gradient(135deg,#6366f1,#06b6d4);
+
+box-shadow:0 6px 18px rgba(0,0,0,.35);
+
+}
+
+button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 30px rgba(99,102,241,.45);
+
+}
+
+button:active{
+
+transform:scale(.95);
+
+}
+
+/* Основной контейнер */
+
+.container{
+
+position:absolute;
+
+top:105px;
+
+left:15px;
+
+right:15px;
+
+bottom:15px;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:18px;
+
+}
+
+/* Панели */
+
+.panel{
+
+background:rgba(255,255,255,.07);
+
+border-radius:22px;
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.08);
+
+overflow:hidden;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+/* Заголовок панели */
+
+.panel-title{
+
+padding:15px 20px;
+
+font-size:17px;
+
+font-weight:600;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+background:rgba(255,255,255,.04);
+
+}
+
+/* Редактор */
+
+textarea{
+
+flex:1;
+
+resize:none;
+
+border:none;
+
+outline:none;
+
+background:transparent;
+
+color:#8aff8a;
+
+padding:20px;
+
+font-size:16px;
+
+line-height:1.6;
+
+font-family:Consolas,monospace;
+
+}
+
+/* Preview */
+
+iframe{
+
+width:100%;
+
+height:100%;
+
+border:none;
+
+background:white;
+
+}
+
+/* Нижняя панель */
+
+.bottom{
+
+position:fixed;
+
+left:15px;
+
+right:15px;
+
+bottom:15px;
+
+height:65px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 20px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Прогресс */
+
+.progress{
+
+width:260px;
+
+height:12px;
+
+background:#243244;
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.progress span{
+
+display:block;
+
+width:25%;
+
+height:100%;
+
+background:linear-gradient(90deg,#22d3ee,#3b82f6);
+
+}
+
+/* Адаптив */
+
+@media(max-width:900px){
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
+.topbar{
+
+flex-wrap:wrap;
+
+height:auto;
+
+padding:15px;
+
+gap:10px;
+
+}
+
+.bottom{
+
+display:none;
+
+}
+
+}
+
+
+
+/* ===== Улучшения 4.1 ===== */
+#toast{
+position:fixed;
+left:50%;
+bottom:90px;
+transform:translateX(-50%) translateY(50px);
+opacity:0;
+transition:.35s;
+background:rgba(20,20,30,.95);
+color:#fff;
+padding:14px 22px;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+z-index:999;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Верхняя панель -->
+<div class="topbar">
+
+    <div class="logo">
+        🚀 HTML Trainer PRO
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            ⭐ XP:
+            <span id="xp">0</span>
+        </div>
+
+        <div class="card">
+            🏅 Lv.
+            <span id="level">1</span>
+        </div>
+
+        <div class="card">
+            💰
+            <span id="coins">0</span>
+        </div>
+
+        <div class="card">
+            ❤️
+            <span id="lives">3</span>
+        </div>
+
+        <div class="card">
+            🔥
+            <span id="combo">0</span>
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button id="checkBtn">
+            ✅ Проверить
+        </button>
+
+        <button id="hintBtn">
+            💡 Подсказка
+        </button>
+
+        <button id="resetBtn">
+            ♻️ Сброс
+        </button>
+
+        <button id="nextBtn">
+            ➜ Следующее
+        </button>
+
+        <button id="downloadBtn">
+            ⬇ Скачать
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Основной экран -->
+
+<div class="container">
+
+    <!-- Левая панель -->
+
+    <div class="panel">
+
+        <div class="panel-title">
+            💻 HTML Редактор
+        </div>
+
+        <textarea
+            id="code"
+            spellcheck="false"
+            placeholder="Начни писать HTML здесь..."
+        ></textarea>
+
+    </div>
+
+    <!-- Правая панель -->
+
+    <div class="panel">
+
+        <div class="panel-title">
+            🌐 Предпросмотр
+        </div>
+
+        <iframe id="preview"></iframe>
+
+    </div>
+
+</div>
+
+<!-- Нижняя панель -->
+
+<div class="bottom">
+
+    <div>
+
+        <h3 id="taskTitle">
+            📖 Загрузка задания...
+        </h3>
+
+        <p id="taskDescription">
+            Подготовка...
+        </p>
+
+    </div>
+
+    <div>
+
+        <div class="progress">
+
+            <span id="progressBar"></span>
+
+        </div>
+
+        <br>
+
+        <div id="taskCounter">
+
+            Задание 1 / 100
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Красивое уведомление -->
+
+<div id="toast">
+
+    <div id="toastText">
+
+        Сообщение
+
+    </div>
+
+</div>
+
+<script>
+  /* ============================
+   HTML Trainer PRO
+   ЧАСТЬ 3 — Основа JavaScript
+============================ */
+
+const code = document.getElementById("code");
+const preview = document.getElementById("preview");
+
+const xpText = document.getElementById("xp");
+const levelText = document.getElementById("level");
+const coinsText = document.getElementById("coins");
+const comboText = document.getElementById("combo");
+const livesText = document.getElementById("lives");
+
+const taskTitle = document.getElementById("taskTitle");
+const taskDescription = document.getElementById("taskDescription");
+const progressBar = document.getElementById("progressBar");
+const taskCounter = document.getElementById("taskCounter");
+
+const toast = document.getElementById("toast");
+const toastText = document.getElementById("toastText");
+
+let xp = 0;
+let coins = 0;
+let combo = 0;
+let level = 1;
+let lives = 3;
+
+let currentTask = 0;
+
+/* ============================
+        ЗАДАНИЯ
+============================ */
+
+const tasks = [
+
+{
+title:"Кнопка",
+
+text:"Создай кнопку с текстом «Жми»",
+
+hint:"Используй тег <button>",
+
+check(doc){
+
+const btn = doc.querySelector("button");
+
+return btn &&
+btn.textContent.trim()=="Жми";
+
+}
+
+},
+
+{
+title:"Заголовок",
+
+text:"Создай H1 с текстом «Привет»",
+
+hint:"Используй <h1>",
+
+check(doc){
+
+const h1 = doc.querySelector("h1");
+
+return h1 &&
+h1.textContent.trim()=="Привет";
+
+}
+
+},
+
+{
+title:"Абзац",
+
+text:"Создай тег p",
+
+hint:"Используй <p>",
+
+check(doc){
+
+return doc.querySelector("p");
+
+}
+
+},
+
+{
+title:"Изображение",
+
+text:"Создай тег img",
+
+hint:"Используй <img>",
+
+check(doc){
+
+return doc.querySelector("img");
+
+}
+
+},
+
+{
+title:"Ссылка",
+
+text:"Создай ссылку",
+
+hint:"Используй <a>",
+
+check(doc){
+
+return doc.querySelector("a");
+
+}
+
+}
+
+];
+
+/* ============================
+      ОБНОВИТЬ ЗАДАНИЕ
+============================ */
+
+function loadTask(){
+
+const t = tasks[currentTask];
+
+taskTitle.innerHTML =
+"📖 "+t.title;
+
+taskDescription.innerHTML =
+t.text;
+
+taskCounter.innerHTML =
+"Задание "+
+(currentTask+1)+
+" / "+
+tasks.length;
+
+progressBar.style.width =
+((currentTask+1)/tasks.length)*100+"%";
+
+}
+
+/* ============================
+       ПРЕВЬЮ
+============================ */
+
+function updatePreview(){
+
+preview.srcdoc =
+code.value;
+
+}
+
+/* ============================
+      Автосохранение
+============================ */
+
+let saveTimeout;
+
+code.addEventListener("input",()=>{
+
+clearTimeout(saveTimeout);
+
+saveTimeout=setTimeout(()=>{
+
+updatePreview();
+
+localStorage.setItem(
+"trainer_code",
+code.value
+);
+
+},200);
+
+});
+
+/* ============================
+        Toast
+============================ */
+
+function showToast(text){
+
+toastText.innerHTML=text;
+
+toast.style.opacity="1";
+
+toast.style.transform="translateX(-50%) translateY(0)";
+
+setTimeout(()=>{
+
+toast.style.opacity="0";
+
+toast.style.transform="translateX(-50%) translateY(50px)";
+
+},2200);
+
+}
+
+/* ============================
+      Начальная загрузка
+============================ */
+
+window.onload=()=>{
+
+const saved=
+localStorage.getItem("trainer_code");
+
+if(saved){
+
+code.value=saved;
+
+}
+
+updatePreview();
+
+loadTask();
+
+xpText.innerHTML=xp;
+coinsText.innerHTML=coins;
+comboText.innerHTML=combo;
+levelText.innerHTML=level;
+livesText.innerHTML=lives;
+
+};
